@@ -13,7 +13,7 @@
   <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Navbar</a>
+    <a class="navbar-brand" href="index">Navbar</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -40,10 +40,9 @@
           <a class="nav-link disabled">Disabled</a>
         </li>
       </ul>
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
+      <div class="d-flex">
+        <a href="login"> <button class="btn btn-outline-success" type="submit">Login</button></a>
+      </div>
     </div>
   </div>
 </nav>
@@ -78,25 +77,25 @@
 
               <div class="form-group">
                  <label>Full Name</label>
-                 <input type="text" class="form-control" id="full_name"  alt="full_name" placeholder="Please enter Full name" required>
+                 <input  type="text" class="form-control" id="full_name"  alt="full_name" placeholder="Please enter Full name" autocomplete="off">
                  <span class="fname-error"></span>
                </div>
 
                <div class="form-group">
                  <label>Email Address</label>
-                  <input type="email" class="form-control" id="email_address" alt="email_address" placeholder="Please enter Email Address" required>
+                  <input type="text" class="form-control" id="email_address" alt="email_address" placeholder="Please enter Email Address" autocomplete="off">
                   <span class="email-error"></span>
                </div>
 
                <div class="form-group">
                  <label>Username</label>
-                 <input type="text" class="form-control" id="username" alt="username" placeholder="Please enter Username" required>
+                 <input type="text" class="form-control" id="username" alt="username" placeholder="Please enter Username" autocomplete="off">
                   <span class="uname-error"></span>
                </div>
 
                <div class="form-group">
                   <label>Password</label>
-                  <input type="password" class="form-control" id="password" alt="password" placeholder="Please enter Password" required>
+                  <input type="password" class="form-control" id="password" alt="password" placeholder="Please enter Password" autocomplete="off">
                     <span class="pass-error"></span>
                </div>
 
@@ -148,7 +147,7 @@
     <!--end jquery and javascript -->
 
   <!-- javascript ES6 -->
- <script src="assets/js/jquery.min.js"></script>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
  <script type="text/javascript"> 
 
     document.addEventListener('DOMContentLoaded', () => {
@@ -173,63 +172,110 @@
               console.log(password);
 
 
-            function isValidFullname(){
-                if($("#full_name").val() === ""){
+          function isValidFullname(){
+             
+             var pattern = /^[a-z A-Z ]+$/;
+             var full_name = $("#full_name").val();
+             if(pattern.test(full_name) && full_name !== ""){
+                $("#full_name").removeClass("is-invalid").addClass("is-valid");
+                $(".fname-error").css({
+                 "color": "green",
+                 "font-size": "14px",
+                 "display": "none"
+               });
+                return true;
 
-                    $($("#full_name")).addClass("is-invalid");
-                    $(".fname-error").html("Please enter Full Name");
-                    $(".fname-error").css({"color" : "red", "font-size" : "14px"})
-                  return false;
+             }else if(full_name === ""){
+               $("#full_name").removeClass("is-valid").addClass("is-invalid");
+               $(".fname-error").html("Required Full Name");
+                 $(".fname-error").css({
+                   "color": "red",
+                   "font-size": "14px"
+                 });
+             }else{
+               $("#full_name").removeClass("is-valid").addClass("is-invalid");
+               $(".fname-error").html("Please input Character Only");
+                 $(".fname-error").css({
+                 "color": "red",
+                 "font-size": "14px",
+                 "display": "block"
+               });
 
-                 }else{
+             };
 
-                   $("#full_name").removeClass("is-invalid").addClass("is-valid");
-                   $(".fname-error").html("");
+          }
 
-                  return true;
+
+            function isValidUsername(){
            
-                }
-              }
-
-            function isValidEmail(){
-                if($("#email_address").val() === ""){
-
-                    $($("#email_address")).addClass("is-invalid");
-                    $(".email-error").html("Please enter Email Address");
-                    $(".email-error").css({"color" : "red", "font-size" : "14px"})
-                  return false;
-
-                 }else{
-
-                   $("#email_address").removeClass("is-invalid").addClass("is-valid");
-                   $(".email-error").html("");
-
+               var pattern = /^[a-z A-Z 0-9 #_.]+$/;
+               var username = $("#username").val();
+               if(pattern.test(username) && username !== ""){
+                  $("#username").removeClass("is-invalid").addClass("is-valid");
+                  $(".uname-error").css({
+                   "color": "green",
+                   "font-size": "14px",
+                   "display": "none"
+                 });
                   return true;
-           
-                }
-              }
 
-           function isValidUsername(){
-                if($("#username").val() === ""){
+               }else if(username === ""){
+                 $("#username").removeClass("is-valid").addClass("is-invalid");
+                 $(".uname-error").html("Required Username");
+                   $(".uname-error").css({
+                     "color": "red",
+                     "font-size": "14px"
+                   });
+               }else{
+                 $("#username").removeClass("is-valid").addClass("is-invalid");
+                 $(".uname-error").html("Please input Character Only");
+                   $(".uname-error").css({
+                   "color": "red",
+                   "font-size": "14px",
+                   "display": "block"
+                 });
 
-                    $($("#username")).addClass("is-invalid");
-                    $(".uname-error").html("Please enter Username");
-                    $(".uname-error").css({"color" : "red", "font-size" : "14px"})
-                  return false;
+               };
 
+            }
+
+           function isValidEmail(){
+             
+                 var pattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
+                 var email_address = $("#email_address").val();
+                 if(pattern.test(email_address) && email_address !== ""){
+                    $("#email_address").removeClass("is-invalid").addClass("is-valid");
+                    $(".email-error").css({
+                     "color": "green",
+                     "font-size": "14px",
+                     "display": "none"
+                   });
+                    return true;
+
+                 }else if(email_address === ""){
+                   $("#email_address").removeClass("is-valid").addClass("is-invalid");
+                   $(".email-error").html("Required Email address");
+                     $(".email-error").css({
+                       "color": "red",
+                       "font-size": "14px"
+                     });
                  }else{
+                   $("#email_address").removeClass("is-valid").addClass("is-invalid");
+                   $(".email-error").html("Please input Unique Email Address");
+                     $(".email-error").css({
+                     "color": "red",
+                     "font-size": "14px",
+                     "display": "block"
+                   });
 
-                   $("#username").removeClass("is-invalid").addClass("is-valid");
-                   $(".uname-error").html("");
+                 };
 
-                  return true;
-           
-                }
               }
 
 
            function isValidPassword(){
                 if($("#password").val() === ""){
+                  
 
                     $($("#password")).addClass("is-invalid");
                     $(".pass-error").html("Please enter Password");
@@ -253,13 +299,14 @@
             isValidPassword();
 
             var data = new FormData(this.form);
+
             data.append('fullname', fullname);
             data.append('emailaddress', emailaddress)
             data.append('username', username)
             data.append('password', password)
 
 
-            if(isValidFullname()  && isValidEmail() && isValidUsername()  && isValidPassword()){
+            if(isValidFullname() === true  && isValidEmail() === true && isValidUsername() === true && isValidPassword() === true){
 
                  $.ajax({
 
@@ -279,7 +326,7 @@
                       console.log("Failed Insert");
                     }
 
-                });
+                  });
 
              }
 

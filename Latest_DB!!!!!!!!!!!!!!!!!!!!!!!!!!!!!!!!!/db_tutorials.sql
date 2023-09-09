@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 05, 2023 at 02:10 PM
+-- Generation Time: Sep 09, 2023 at 03:16 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -32,17 +32,17 @@ CREATE TABLE `tbl_members` (
   `fullname` varchar(255) DEFAULT NULL,
   `emailaddress` varchar(255) DEFAULT NULL,
   `username` varchar(255) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL
+  `password` varchar(255) DEFAULT NULL,
+  `role` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_members`
 --
 
-INSERT INTO `tbl_members` (`member_id`, `fullname`, `emailaddress`, `username`, `password`) VALUES
-(1, 'john doe', 'john@gmail.com', 'john012', '123456'),
-(2, 'john doe', 'john@gmail.com', 'john012', '123456'),
-(3, 'nario luis', 'nario@gmail.com', 'nario', '12345');
+INSERT INTO `tbl_members` (`member_id`, `fullname`, `emailaddress`, `username`, `password`, `role`) VALUES
+(1, 'John Doe', 'john@gmail.com', 'john014', '123456', 'User'),
+(2, 'admin admin', 'admin@gmail.com', 'admin', '123456', 'Admin');
 
 --
 -- Indexes for dumped tables
@@ -62,7 +62,7 @@ ALTER TABLE `tbl_members`
 -- AUTO_INCREMENT for table `tbl_members`
 --
 ALTER TABLE `tbl_members`
-  MODIFY `member_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `member_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
