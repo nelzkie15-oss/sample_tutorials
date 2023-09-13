@@ -177,7 +177,7 @@
                                 $('#myalert2').hide();
                                 $('#alerttext2').hide();
                                 setTimeout(function() {
-                                    window.location = '/php_mysql/dashboard_admin/home.php';
+                                    window.location = '/sample_tutorials/dashboard_admin/home.php';
                                 }, 1000);
                             }  else if (data == 2) {
 
@@ -191,7 +191,7 @@
                                 $('#myalert2').hide();
                                 $('#alerttext2').hide();
                                 setTimeout(function() {
-                                    window.location = '/php_mysql/dashboard_user/home.php';
+                                    window.location = '/sample_tutorials/dashboard_user/home.php';
                                 }, 1000);
                             } else {
                                 $('#myalert').slideDown();

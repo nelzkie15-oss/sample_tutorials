@@ -4,16 +4,15 @@
 
   if(ISSET($_POST)){
 
+  	  $conn = new class_php();
 
-  	  $conn = new classSample();
-
-  	    $fullname = $_POST['fullname'];
+  	    $fullname = htmlentities(strip_tags(stripcslashes(trim($_POST['fullname']))));
   	    $emailaddress = $_POST['emailaddress'];
   	    $username = $_POST['username'];
   	    $password = $_POST['password'];
 
 
-        $add = $conn->add_member($fullname, $emailaddress, $username, $password);
+        $add = $conn->add_user($fullname, $emailaddress, $username, $password);
          
          if($add == TRUE){
          	echo "<div class='alert alert-success' role='alert' id='msg'>Added Member Successfully</div><script> setTimeout(function(){location.replace('index.php');}, 1000);</script>";

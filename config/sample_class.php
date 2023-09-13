@@ -103,10 +103,86 @@ require 'connection.php';
 
 
           }
+    // end get session ID for admin 
 
-          // end get session ID for admin 
 
-   
+         // add category
+
+
+          public function add_category($category){
+            $query = $this->pdo->prepare("INSERT INTO `tbl_category`(`category`)VALUES(?)");
+            $true = $query->execute([$category]);
+            if($true == true){
+               return true;
+            }else{
+              return false;
+            }
+
+          }
+
+          // end add category
+
+      
+
+          // get all category
+              
+        public function getallCategory(){
+              $query = $this->pdo->prepare("SELECT * FROM `tbl_category` ORDER BY category_id  DESC");
+               $query->execute();
+               return $query->fetchAll();
+
+        }
+
+          // end get all category
+
+        //row category
+
+        public function row_category($category_id){
+            $query = $this->pdo->prepare("SELECT * FROM `tbl_category` WHERE category_id  = ?");
+            $query->execute([$category_id]);
+            $row = $query->fetch();
+            echo json_encode($row);
+
+        }
+
+
+        // end row category
+
+
+        // edit category
+
+
+        public function edit_category($category, $category_id){
+            $query = "UPDATE `tbl_category` SET  `category` = ? WHERE category_id = ?";
+             $update = $this->pdo->prepare($query)->execute([$category, $category_id]);
+            if($update == true){
+               return true;
+            }else{
+              return false;
+            }
+
+          }
+
+        // end edit category
+
+
+       //delete category
+
+
+          public function delete_category($category_id){
+          
+            $query = $this->pdo->prepare("DELETE FROM `tbl_category` WHERE category_id  = ?");
+            $delete =  $query->execute([$category_id]);
+         if($delete == true){
+               return true;
+            }else{
+              return false;
+            }
+
+          }
+
+        //end delete category
+
 
    
 
