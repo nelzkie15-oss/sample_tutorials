@@ -185,6 +185,30 @@ require 'connection.php';
 
 
    
+        public function send_email($code, $email){
+
+          $sql = "UPDATE `tbl_members` SET  `code` = ? WHERE emailaddress = ?";
+           $update = $this->pdo->prepare($sql)->execute([$code, $email]);
+             if ($update == true) {
+                 return true;
+              } else {
+                 return false;
+            }
+
+         }
+
+       public function change_password($password, $code){
+           
+          $sql = "UPDATE `tbl_members` SET  `password` = ?, `code` = '' WHERE code = ?";
+           $update = $this->pdo->prepare($sql)->execute([$password, $code]);
+             if ($update == true) {
+                 return true;
+              } else {
+                 return false;
+            }
+
+         }
+
 
 
   }

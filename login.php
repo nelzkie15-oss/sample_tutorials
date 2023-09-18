@@ -104,7 +104,9 @@
                   <input type="password" class="form-control" id="password" name="password" placeholder="Please enter Password" required>
                     <span class="pass-error"></span>
                </div>
-
+               <div class="form-group">
+                     <a href="forget-password">Forget Password</a>
+                  </div>
                <div class="form-group mt-2">
                   <button type="button" class="btn btn-primary" id="login-button" style="float: right;">Sign In</button>
                </div>
