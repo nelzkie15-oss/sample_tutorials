@@ -85,6 +85,7 @@
                  <label>Email Address</label>
                   <input type="text" class="form-control" id="email_address" alt="email_address" placeholder="Please enter Email Address" autocomplete="off">
                   <span class="email-error"></span>
+                  <label id="msg-emil" style="color:#CC0000;" ></label><br>
                </div>
 
                <div class="form-group">
@@ -112,12 +113,76 @@
         <!--end div 6 1/2-->
 
       </div>   
-
-
     </div>
   </div>
-  <h1>asdasdadsda</h1>
 
+
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+      $(document).ready(function() {
+   
+          var timeOut = null; // this used for hold few seconds to made ajax request
+   
+          var loading_html = '<img src="assets/images/output-onlinegiftools.gif" style="height: 40px; width: 40px;"/>'; // just an loading image or we can put any texts here
+   
+          //when button is clicked
+          $('#email_address').keyup(function(e){
+   
+              // when press the following key we need not to make any ajax request, you can customize it with your own way
+              switch(e.keyCode)
+              {
+                  //case 8:   //backspace
+                  case 9:     //tab
+                  case 13:    //enter
+                  case 16:    //shift
+                  case 17:    //ctrl
+                  case 18:    //alt
+                  case 19:    //pause/break
+                  case 20:    //caps lock
+                  case 27:    //escape
+                  case 33:    //page up
+                  case 34:    //page down
+                  case 35:    //end
+                  case 36:    //home
+                  case 37:    //left arrow
+                  case 38:    //up arrow
+                  case 39:    //right arrow
+                  case 40:    //down arrow
+                  case 45:    //insert
+                  //case 46:  //delete
+                      return;
+              }
+              if (timeOut != null)
+                  clearTimeout(timeOut);
+              timeOut = setTimeout(is_available, 500);  // delay delay ajax request for 1000 milliseconds
+              $('#msg-emil').html(loading_html); // adding the loading text or image
+          });
+    });
+  function is_available(){
+      //get the username
+      var email_address = $('#email_address').val();
+   
+      //make the ajax request to check is email available or not
+      $.post("config/check_email.php", { email_address: email_address },
+      function(result)
+      {
+          console.log(result);
+          if(result != 0)
+          {
+            $('#msg-emil').html('Email already exists');
+            document.getElementById("btn-submit").disabled = true;
+          } else
+          {
+              $('#msg-emil').html('<span style="color:#006600;">Available</span>');
+              document.getElementById("btn-submit").disabled = false;
+          }
+      });
+   
+  }
+  </script>
+
+  
   <!-- jquery and javascript -->
 <!-- 
     <script>
@@ -148,7 +213,7 @@
     <!--end jquery and javascript -->
 
   <!-- javascript ES6 -->
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
  <script type="text/javascript"> 
 
     document.addEventListener('DOMContentLoaded', () => {

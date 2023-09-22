@@ -211,5 +211,19 @@ require 'connection.php';
 
 
 
+     public function check_email($email_address){
+
+         
+          $query = $this->pdo->prepare("SELECT emailaddress FROM tbl_members WHERE emailaddress = ?");
+          $query->execute([$email_address]);
+          $email = $query->rowCount();
+           print($email);  
+
+
+
+     }
+
+
+
   }
  ?>
