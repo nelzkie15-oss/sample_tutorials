@@ -9,8 +9,44 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
     <title>Sample Website</title>
+  <style>
+      @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap');
+      body{
+        font-family: 'Ubuntu', sans-serif;
+      }
+      .d-block{
+        width: 100%;
+        height: 350px;
+      }
+      .top{
+        margin-top: 10%;
+      }
+    </style>
+
+    <style>
+       #loader{
+        position: fixed;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+        background: url('assets/loading/Dual Ring-1s-200px.png') 50% 50% no-repeat rgb(249,249,249);
+        opacity: 1;
+        }
+       
+  </style>
+    <script src="assets/js/jquery.min.js"></script>
+    <script type="text/javascript">
+      $(window).on('load', function(){
+        setTimeout(function(){
+              $('#loader').fadeOut('slow');  
+          });
+      });
+    </script>
   </head>
   <body>
+    <div id="loader"></div>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="index">Navbar</a>
@@ -54,21 +90,49 @@
       <div class="row">
 
        <!-- div 6 1/2-->
-        <div class="col-md-6">
-         <div class="card">
-           <div class="card-header">
-             <img src="assets/images/file_1691955135.webp" style="width:100%;height: 200px;">
-           </div>
-           <div class="card-body">
+     <div class="col-sm-12 col-md-6 col-lg-7">
+      <div class="card">
+          <div class="card-body">
+     
 
-           </div>
-         </div>
+            <!-- slide -->
+
+                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                  <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                  </div>
+                  <div class="carousel-inner">
+                    <div class="carousel-item active">
+                      <img src="assets/images/91617500-charity-and-donation-background-with-various-icons.jpg" class="d-block" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                      <img src="assets/images/donation-boxes-background-free-vector.jpg" class="d-block" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                      <img src="assets/images/desktop-wallpaper-blood-bank-blood-donation.jpg" class="d-block" alt="...">
+                    </div>
+                  </div>
+                  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                  </button>
+                  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                  </button>
+                </div>
+             <!-- end slide -->
+          </div>
         </div>
 
+
+        </div>
         <!--end div 6 1/2-->
 
        <!-- div 6 1/2-->
-        <div class="col-md-6">
+        <div class="col-md-5">
          <div class="card">
            <div class="card-header">Registration Page</div>
            <div class="card-body">
@@ -85,7 +149,7 @@
                  <label>Email Address</label>
                   <input type="text" class="form-control" id="email_address" alt="email_address" placeholder="Please enter Email Address" autocomplete="off">
                   <span class="email-error"></span>
-                  <label id="msg-emil" style="color:#CC0000;" ></label><br>
+                  <!-- <label id="msg-emil" style="color:#CC0000;" ></label><br> -->
                </div>
 
                <div class="form-group">
@@ -119,7 +183,7 @@
 
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
       $(document).ready(function() {
    
           var timeOut = null; // this used for hold few seconds to made ajax request
@@ -181,7 +245,7 @@
    
   }
   </script>
-
+ -->
   
   <!-- jquery and javascript -->
 <!-- 

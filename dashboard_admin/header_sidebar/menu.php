@@ -13,6 +13,7 @@
     $getsessionID = trim($_SESSION['userid']);
     $admin = $conn->fetch_adminsessionId($getsessionID);
     $getallcategory = $conn->getallCategory();
+    $getalluser = $conn->getallMembers();
 
   }
 
@@ -74,6 +75,13 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Category
                             </a>
+
+                         <a class="nav-link" href="members">
+                                <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
+                                Members
+                            </a>
+
+
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">

@@ -33,9 +33,10 @@ require 'connection.php';
           public function add_user($fullname, $emailaddress, $username, $password){
 
                    $role = "user";
+                   $hashpass = password_hash($password, PASSWORD_DEFAULT);
 
                    $stmt = $this->pdo->prepare("INSERT INTO `tbl_members` (`fullname`, `emailaddress`, `username`, `password`, `role`)VALUES(?,?,?,?,?)");
-                   $true = $stmt->execute([$fullname, $emailaddress, $username, $password, $role]);
+                   $true = $stmt->execute([$fullname, $emailaddress, $username, $hashpass, $role]);
                   if($true == true){
                    	 return true;
                    }else{
@@ -52,29 +53,44 @@ require 'connection.php';
 
              session_start();
 
-              $stmt1 = $this->pdo->prepare("SELECT * FROM `tbl_members` WHERE `emailaddress` = :umail AND `password` = :upass AND `role` = :urole");
-              $stmt1->execute(array(':umail' => $emailaddress, ':upass' => $password, ':urole' => 'Admin' ));
-              $row = $stmt1->fetch(PDO::FETCH_ASSOC);
+                $stmt1 = $this->pdo->prepare("SELECT member_id, password FROM tbl_members WHERE emailaddress = :uemail AND role = 'Admin'");
+                $stmt1->bindParam(':uemail', $emailaddress);
+                $stmt1->execute();
+                $row1 = $stmt1->fetch(PDO::FETCH_ASSOC);
 
-              $stmt2 = $this->pdo->prepare("SELECT * FROM `tbl_members` WHERE `emailaddress` = :umail AND `password` = :upass AND `role` = :urole");
-              $stmt2->execute(array(':umail' => $emailaddress, ':upass' => $password, ':urole' => 'User' ));
-              $row2 = $stmt2->fetch(PDO::FETCH_ASSOC);
+                $stmt2 = $this->pdo->prepare("SELECT member_id, password FROM tbl_members WHERE emailaddress = :uemail AND role = 'User'");
+                $stmt2->bindParam(':uemail', $emailaddress);
+                $stmt2->execute();
+                $row2 = $stmt2->fetch(PDO::FETCH_ASSOC);
 
+                  if($stmt1->rowCount() > 0){
 
-              if($stmt1->rowCount() > 0){
-                $_SESSION['userid'] = htmlentities($row['member_id']);
-                $_SESSION['logged_in'] = true;
-               echo '1';
-              }else if($stmt2->rowCount() > 0){
-                $_SESSION['userid2'] = htmlentities($row2['member_id']);
-                $_SESSION['logged_in2'] = true;
-                echo '2';
+                      if (password_verify($password, $row1['password'])) {
+                              $_SESSION['userid'] = htmlentities($row1['member_id']);
+                               $_SESSION['logged_in'] = true;
+                               echo '1';
+
+                    }else {
+                         echo "<div class='alert alert-danger'>Invalid password!</div>";
+                    }
+
+                }else if($stmt2->rowCount() > 0){
+                        // Verify the password
+                        if (password_verify($password, $row2['password'])) {
+                  
+                           $_SESSION['userid2'] = htmlentities($row2['member_id']);
+                           $_SESSION['logged_in2'] = true;
+                           echo '2';
+
+                        }else {
+                         echo "<div class='alert alert-danger'>Invalid password!</div>";
+                     }          
                 
                 exit();
               }else{
-                echo "<div class='alert alert-danger'>Incorrect Email Address or Password</div>";
+                echo "<div class='alert alert-warning'>Incorrect Email Address or Password</div>";
               }
-          }
+           }
 
        //end login
 
@@ -218,6 +234,17 @@ require 'connection.php';
           $query->execute([$email_address]);
           $email = $query->rowCount();
            print($email);  
+
+
+
+     }
+
+
+     public function getallMembers(){
+
+          $query = $this->pdo->prepare("SELECT * FROM `tbl_members` ORDER BY member_id  DESC");
+               $query->execute();
+               return $query->fetchAll();
 
 
 
