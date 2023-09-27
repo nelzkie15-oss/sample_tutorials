@@ -53,7 +53,7 @@ require 'connection.php';
 
              session_start();
 
-                $stmt1 = $this->pdo->prepare("SELECT member_id, password FROM tbl_members WHERE emailaddress = :uemail AND role = 'Admin'");
+                $stmt1 = $this->pdo->prepare("SELECT admin_id, password FROM tbl_admin WHERE emailaddress = :uemail AND role = 'Admin'");
                 $stmt1->bindParam(':uemail', $emailaddress);
                 $stmt1->execute();
                 $row1 = $stmt1->fetch(PDO::FETCH_ASSOC);
@@ -66,7 +66,7 @@ require 'connection.php';
                   if($stmt1->rowCount() > 0){
 
                       if (password_verify($password, $row1['password'])) {
-                              $_SESSION['userid'] = htmlentities($row1['member_id']);
+                              $_SESSION['userid'] = htmlentities($row1['admin_id']);
                                $_SESSION['logged_in'] = true;
                                echo '1';
 
@@ -98,7 +98,7 @@ require 'connection.php';
 
           public function fetch_adminsessionId($getsessionID){
              
-               $query = $this->pdo->prepare("SELECT * FROM `tbl_members` WHERE `member_id` =  ?");
+               $query = $this->pdo->prepare("SELECT * FROM `tbl_admin` WHERE `admin_id` =  ?");
                $query->execute([$getsessionID]);
                return $query->fetchAll();
 
@@ -249,6 +249,30 @@ require 'connection.php';
 
 
      }
+
+     public function add_admin($fullname, $emailaddress, $username, $password, $photo){
+
+
+                   $role = "Admin";
+                   $hashpass = password_hash($password, PASSWORD_DEFAULT);
+
+                   $stmt = $this->pdo->prepare("INSERT INTO `tbl_admin` (`fullname`, `emailaddress`, `username`, `password`, `photo`, `role`)VALUES(?,?,?,?,?,?)");
+                   $true = $stmt->execute([$fullname, $emailaddress, $username, $hashpass, $photo, $role]);
+                  if($true == true){
+                     return true;
+                   }else{
+                      return false;
+             }
+
+
+     }
+
+     public function getallAdmin(){
+
+               $query = $this->pdo->prepare("SELECT * FROM `tbl_admin` ORDER BY admin_id  DESC");
+               $query->execute();
+               return $query->fetchAll();
+       }
 
 
 
